@@ -38,3 +38,36 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 2: 初始化 Git 管理与 GitHub 仓库
+
+**Date**: 2026-06-17
+**Task**: 初始化 Git 管理与 GitHub 仓库
+**Branch**: `main`
+
+### Summary
+
+初始化本地 Git 仓库，创建 private GitHub 仓库 ziangbuchu/ML_homework，配置 origin，提交并推送 main，同时写入 .gitignore 和仓库链接。
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `e687231` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
