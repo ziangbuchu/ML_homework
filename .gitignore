@@ -1,0 +1,40 @@
+# Local data and generated artifacts
+data/
+results/
+checkpoints/
+models/
+outputs/
+logs/
+wandb/
+
+# Report build outputs
+reports/**/*.aux
+reports/**/*.bbl
+reports/**/*.bcf
+reports/**/*.blg
+reports/**/*.fdb_latexmk
+reports/**/*.fls
+reports/**/*.log
+reports/**/*.out
+reports/**/*.run.xml
+reports/**/*.synctex.gz
+reports/**/*.toc
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Environments and secrets
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+
+# OS/editor
+.DS_Store
+Thumbs.db

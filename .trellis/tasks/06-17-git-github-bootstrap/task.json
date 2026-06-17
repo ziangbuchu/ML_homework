@@ -1,0 +1,31 @@
+{
+  "id": "git-github-bootstrap",
+  "name": "git-github-bootstrap",
+  "title": "git 管理与创建 GitHub 仓库",
+  "description": "初始化本地 Git 仓库，创建 GitHub 远端仓库，并推送课程作业项目地基。",
+  "status": "in_progress",
+  "dev_type": "chore",
+  "scope": "git-github-bootstrap",
+  "package": null,
+  "priority": "P2",
+  "creator": "lf",
+  "assignee": "lf",
+  "createdAt": "2026-06-17",
+  "completedAt": null,
+  "branch": null,
+  "base_branch": "main",
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [],
+  "parent": null,
+  "relatedFiles": [
+    ".gitignore",
+    "README.md",
+    "docs/project-foundation.md",
+    ".trellis/tasks/06-17-git-github-bootstrap/prd.md"
+  ],
+  "notes": "Requires explicit user confirmation before local commit, GitHub repository creation, and push.",
+  "meta": {}
+}

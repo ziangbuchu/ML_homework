@@ -1,0 +1,4 @@
+{"file": "docs/assignment-requirements.md", "reason": "课程 PDF 硬性要求的项目内整理版，后续实现必须遵守。"}
+{"file": "docs/project-foundation.md", "reason": "后续目录、数据流水线、实验矩阵和报告素材的项目地基。"}
+{"file": ".trellis/tasks/06-17-ml-homework-requirements-foundation/research/course-assignment-pdf.md", "reason": "从用户提供 PDF 提取的原始要求摘要。"}
+{"file": ".trellis/spec/guides/code-reuse-thinking-guide.md", "reason": "后续实现共享训练、评估、绘图逻辑前用于避免重复。"}

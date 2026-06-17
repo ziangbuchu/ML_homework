@@ -1,0 +1,31 @@
+{
+  "id": "ml-homework-requirements-foundation",
+  "name": "ml-homework-requirements-foundation",
+  "title": "记录机器学习大作业要求与项目地基",
+  "description": "从课程 PDF 提取机器学习大作业要求，建立项目文档、实验边界和后续开发上下文。",
+  "status": "in_progress",
+  "dev_type": "docs",
+  "scope": "requirements-foundation",
+  "package": null,
+  "priority": "P2",
+  "creator": "lf",
+  "assignee": "lf",
+  "createdAt": "2026-06-17",
+  "completedAt": null,
+  "branch": null,
+  "base_branch": "main",
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [],
+  "parent": null,
+  "relatedFiles": [
+    "README.md",
+    "docs/assignment-requirements.md",
+    "docs/project-foundation.md",
+    ".trellis/tasks/06-17-ml-homework-requirements-foundation/research/course-assignment-pdf.md"
+  ],
+  "notes": "Foundation task for recording assignment requirements before implementing data/model/report pipeline.",
+  "meta": {}
+}
