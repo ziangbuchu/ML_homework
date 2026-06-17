@@ -24,7 +24,7 @@
     ".gitignore",
     "README.md",
     "docs/project-foundation.md",
-    ".trellis/tasks/06-17-git-github-bootstrap/prd.md"
+    ".trellis/tasks/archive/2026-06/06-17-git-github-bootstrap/prd.md"
   ],
   "notes": "Requires explicit user confirmation before local commit, GitHub repository creation, and push.",
   "meta": {}
