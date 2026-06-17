@@ -1,4 +1,4 @@
 {"file": "docs/assignment-requirements.md", "reason": "检查交付物是否覆盖课程 PDF 的硬性要求。"}
 {"file": "docs/project-foundation.md", "reason": "检查项目骨架是否支持后续数据、模型、实验和报告产物。"}
-{"file": ".trellis/tasks/06-17-ml-homework-requirements-foundation/research/course-assignment-pdf.md", "reason": "核对整理结果是否偏离 PDF 原始要求。"}
+{"file": ".trellis/tasks/archive/2026-06/06-17-ml-homework-requirements-foundation/research/course-assignment-pdf.md", "reason": "核对整理结果是否偏离 PDF 原始要求。"}
 {"file": ".trellis/spec/guides/code-reuse-thinking-guide.md", "reason": "检查后续规划是否避免训练、评估、绘图逻辑重复。"}
