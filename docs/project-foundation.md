@@ -45,14 +45,15 @@ ML_homework/
 
 后续实现时建议固定以下流水线：
 
-1. 读取课程提供的 train/test CSV。
-2. 解析时间列，处理分钟级原始记录。
+1. 下载或读取 UCI 官方 `household_power_consumption.txt`。
+2. 解析 `Date` + `Time`，处理分钟级原始记录。
 3. 按天聚合电力变量和天气变量。
 4. 显式处理缺失值，并记录策略。
 5. 构造滑动窗口样本：
    - 输入长度：90 天。
    - 输出长度：90 或 365 天。
-6. 保存标准化器、数据划分和窗口参数，保证复现实验。
+6. 先生成完整滑动窗口，再按窗口顺序切分 train / val / test，保证 365 天长期预测也有验证和测试样本。
+7. 每个输出长度单独保存标准化器、数据划分和窗口参数，保证复现实验。
 
 ## 模型边界
 
@@ -84,8 +85,8 @@ ML_homework/
 
 ## 当前风险与待确认项
 
-- 课程数据文件尚未放入项目，无法确认测试集实际文件名。
+- 数据源已确认使用 UCI 官方单文件；课程 `tes.csv` / `test.csv` 拼写差异不再作为当前主线 blocker。
 - GitHub 仓库已创建：`https://github.com/ziangbuchu/ML_homework`
-- 改进模型方向尚未确定。
+- 改进模型已确定为固定 `0.5/0.5` 权重的 LSTM+Transformer Ensemble。
 - 是否组队尚未确定；若组队，需要记录贡献。
-- PDF 报告格式和排版工具尚未确定，可以后续选择 Markdown、LaTeX 或 Word 导出 PDF。
+- PDF 报告默认由 `reports/ML_homework_report.html` 通过 `scripts/build_design_report_pdf.py` 导出；LaTeX 和旧 Python 构建脚本仅作为 fallback。

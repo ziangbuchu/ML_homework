@@ -1,0 +1,27 @@
+experiment:
+  name: official_tcn_transformer_h90
+  seed: 3
+  device: cpu
+  output_root: results/official_runs
+  overwrite: true
+data:
+  train_path: data/processed/uci_power/train_input90_output90.npz
+  val_path: data/processed/uci_power/val_input90_output90.npz
+  test_path: data/processed/uci_power/test_input90_output90.npz
+model:
+  name: tcn_transformer
+  d_model: 64
+  nhead: 4
+  num_layers: 2
+  dim_feedforward: 128
+  conv_kernel_size: 5
+  conv_layers: 1
+  dropout: 0.1
+training:
+  epochs: 8
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 0.0
+  early_stopping_patience: 3
+artifacts:
+  plot_examples: 3

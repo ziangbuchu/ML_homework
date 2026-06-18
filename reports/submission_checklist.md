@@ -1,0 +1,22 @@
+# 最终提交检查清单
+
+- [x] 代码仓库包含可运行的数据、训练、正式实验和汇总脚本。
+- [x] GitHub 链接已写入 README 和报告：https://github.com/ziangbuchu/ML_homework
+- [x] HTML/CSS 设计报告源稿已完成：`reports/ML_homework_report.html`
+- [x] 设计版 PDF 构建脚本已完成：`scripts/build_design_report_pdf.py`
+- [x] LaTeX PDF 报告源稿已完成：`reports/ML_homework_report.tex`
+- [x] Markdown 报告源稿已保留：`reports/ML_homework_report.md`
+- [x] PDF 报告已由设计版构建脚本导出：`reports/ML_homework_report.pdf`
+- [x] 报告包含四部分：问题介绍、模型、结果与分析、讨论。
+- [x] 报告包含 MSE/MAE 的 5 seed mean/std 表。
+- [x] 报告包含 90 天和 365 天预测曲线图。
+- [x] 报告包含 naive baseline sanity check：`results/official_summary/naive_baseline_summary.md`
+- [x] 报告包含 ensemble 验证集调权消融：`results/official_summary/ensemble_weight_summary.md`
+- [x] 报告包含参考文献和工具辅助说明。
+- [x] 结果表可追溯到 `results/official_summary/metrics_summary.csv`。
+- [x] 最终 improved model 在 90/365 两个 horizon 的 test MSE 和 test MAE 上均排名第一。
+- [x] 复现说明已完成：`docs/reproducibility.md`
+- [x] 自动提交自检已完成：`PYTHONPATH=src python scripts/verify_submission.py`
+- [x] 自检覆盖 PDF、空白页、报告文本、关键文件、结果图和 improved model 排名。
+- [x] 提交入口已记录：https://docs.qq.com/form/page/DT3pqV3pNcGV6TG1z
+- [x] 截止时间已记录：2026 年 7 月 15 日中午 12:00 前。

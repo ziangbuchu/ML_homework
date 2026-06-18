@@ -1,0 +1,34 @@
+source: uci_household_power
+download_url: "https://archive.ics.uci.edu/static/public/235/individual+household+electric+power+consumption.zip"
+raw_dir: data/raw/uci_power
+raw_file: data/raw/uci_power/household_power_consumption.txt
+processed_dir: data/processed/uci_power
+summary_path: results/data/uci_power_summary.json
+scaler_path: data/processed/uci_power/scaler.json
+
+weather:
+  enabled: false
+
+target_column: global_active_power
+feature_columns:
+  - global_active_power
+  - global_reactive_power
+  - voltage
+  - global_intensity
+  - sub_metering_1
+  - sub_metering_2
+  - sub_metering_3
+  - sub_metering_remainder
+
+input_length: 90
+output_lengths:
+  - 90
+  - 365
+
+split:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  policy: chronological_sliding_window_splits
+
+missing:
+  strategy: minute_time_interpolate_then_ffill_bfill

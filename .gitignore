@@ -1,6 +1,8 @@
 # Local data and generated artifacts
-data/
-results/
+data/*
+results/*
+!results/official_summary/
+!results/official_summary/**
 checkpoints/
 models/
 outputs/
@@ -32,6 +34,7 @@ __pycache__/
 .env
 .env.*
 !.env.example
+.tools/
 .venv/
 venv/
 

@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>家庭电力消耗多步预测机器学习课程大作业</title>
+  <style>
+    :root {
+      --ink: #0a1020;
+      --muted: #5b6578;
+      --paper: #f8fbff;
+      --panel: #ffffff;
+      --blue: #1554ff;
+      --blue-deep: #082b9a;
+      --blue-soft: #e9f0ff;
+      --line: #16213d;
+      --grid: rgba(21, 84, 255, 0.12);
+      --good: #0b6bcb;
+      --warn: #9a5b00;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: #dfe7f5;
+      color: var(--ink);
+      font-family: "Noto Sans CJK SC", "Nimbus Sans", sans-serif;
+      line-height: 1.48;
+    }
+
+    body {
+      counter-reset: page;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      html,
+      body {
+        background: #ffffff;
+      }
+
+      .sheet {
+        height: auto;
+        min-height: 296.5mm;
+        margin: 0;
+        box-shadow: none;
+        break-after: auto;
+        page-break-after: auto;
+      }
+
+      .sheet + .sheet {
+        break-before: page;
+        page-break-before: always;
+      }
+    }
+
+    .sheet {
+      position: relative;
+      width: 210mm;
+      height: 297mm;
+      margin: 16px auto;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+        linear-gradient(0deg, var(--grid) 1px, transparent 1px),
+        var(--paper);
+      background-size: 12mm 12mm;
+      box-shadow: 0 28px 80px rgba(19, 34, 67, 0.22);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .sheet::after {
+      counter-increment: page;
+      content: counter(page, decimal-leading-zero);
+      position: absolute;
+      right: 16mm;
+      bottom: 10mm;
+      color: var(--blue);
+      font-family: "DejaVu Sans Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 16mm 17mm 17mm;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      left: 17mm;
+      right: 17mm;
+      top: 12mm;
+      height: 3px;
+      background: var(--line);
+    }
+
+    .running {
+      position: absolute;
+      left: 17mm;
+      top: 7mm;
+      right: 17mm;
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-family: "DejaVu Sans Mono", monospace;
+    }
+
+    .cover {
+      background:
+        radial-gradient(circle at 25% 20%, rgba(21, 84, 255, 0.16), transparent 28%),
+        linear-gradient(112deg, #f8fbff 0%, #eef4ff 48%, #ffffff 48%, #ffffff 100%);
+    }
+
+    .cover-mark {
+      position: absolute;
+      right: -26mm;
+      top: 18mm;
+      width: 120mm;
+      height: 120mm;
+      border: 32px solid rgba(21, 84, 255, 0.08);
+      border-radius: 50%;
+    }
+
+    .deck-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border: 2px solid var(--line);
+      color: var(--blue-deep);
+      background: #ffffff;
+      font: 700 10px/1 "DejaVu Sans Mono", monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      position: relative;
+      padding-top: 28mm;
+    }
+
+    .hero h1 {
+      margin: 14mm 0 8mm;
+      max-width: 156mm;
+      font-family: "Noto Serif CJK SC", serif;
+      font-size: 38px;
+      line-height: 1.12;
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+
+    .hero .subtitle {
+      max-width: 136mm;
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .cover-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 8mm;
+      margin-top: 16mm;
+      align-items: stretch;
+    }
+
+    .brief {
+      border: 3px solid var(--line);
+      background: #ffffff;
+      padding: 7mm;
+    }
+
+    .brief-row {
+      display: grid;
+      grid-template-columns: 27mm 1fr;
+      gap: 5mm;
+      padding: 3.4mm 0;
+      border-bottom: 1px solid #d8dfef;
+      font-size: 12px;
+    }
+
+    .brief-row:last-child {
+      border-bottom: 0;
+    }
+
+    .brief dt {
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .brief dd {
+      margin: 0;
+    }
+
+    .metric-stack {
+      display: grid;
+      gap: 4mm;
+    }
+
+    .metric-card {
+      position: relative;
+      min-height: 28mm;
+      padding: 5mm;
+      border: 2px solid var(--line);
+      background: var(--blue);
+      color: white;
+    }
+
+    .metric-card.light {
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    .metric-card .k {
+      display: block;
+      font: 700 9px/1 "DejaVu Sans Mono", monospace;
+      letter-spacing: 0.12em;
+      opacity: 0.78;
+      text-transform: uppercase;
+    }
+
+    .metric-card .v {
+      display: block;
+      margin-top: 3mm;
+      font-family: "Noto Serif CJK SC", serif;
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .section-title {
+      margin: 16mm 0 8mm;
+      display: grid;
+      grid-template-columns: 22mm 1fr;
+      align-items: center;
+      gap: 5mm;
+    }
+
+    .section-title .num {
+      color: #ffffff;
+      background: var(--blue);
+      border: 3px solid var(--line);
+      width: 20mm;
+      height: 15mm;
+      display: grid;
+      place-items: center;
+      font: 900 18px/1 "DejaVu Sans Mono", monospace;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-family: "Noto Serif CJK SC", serif;
+      font-size: 24px;
+      line-height: 1.05;
+    }
+
+    .kicker {
+      margin: 0 0 3mm;
+      color: var(--blue);
+      font: 900 10px/1.1 "DejaVu Sans Mono", monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0 0 4mm;
+      font-size: 12px;
+    }
+
+    .lead {
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8mm;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5mm;
+    }
+
+    .panel {
+      border: 2px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 5mm;
+    }
+
+    .panel.blue {
+      background: var(--blue-soft);
+    }
+
+    .panel h3 {
+      margin: 0 0 3mm;
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .panel p,
+    .panel li {
+      font-size: 10.8px;
+    }
+
+    .rule-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rule-list li {
+      padding: 3mm 0;
+      border-bottom: 1px solid #d8dfef;
+    }
+
+    .rule-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .mono {
+      font-family: "DejaVu Sans Mono", monospace;
+      font-size: 10px;
+    }
+
+    .code {
+      margin-top: 4mm;
+      padding: 4mm;
+      border: 1.8px solid var(--line);
+      background: #0d1730;
+      color: #dce8ff;
+      font-family: "DejaVu Sans Mono", monospace;
+      font-size: 9px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.2px;
+      background: #ffffff;
+    }
+
+    th {
+      text-align: left;
+      color: var(--blue-deep);
+      border-top: 2.5px solid var(--line);
+      border-bottom: 1.6px solid var(--line);
+      padding: 2.3mm 1.5mm;
+      font-weight: 900;
+    }
+
+    td {
+      border-bottom: 1px solid #d6deee;
+      padding: 2.1mm 1.5mm;
+      vertical-align: top;
+    }
+
+    .num-cell {
+      text-align: right;
+      font-family: "DejaVu Sans Mono", monospace;
+      white-space: nowrap;
+    }
+
+    .best {
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .table-note {
+      margin-top: 3mm;
+      color: var(--muted);
+      font-size: 9.5px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4mm;
+      margin: 6mm 0;
+    }
+
+    .stat {
+      border-left: 4px solid var(--blue);
+      background: #ffffff;
+      padding: 4mm;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Noto Serif CJK SC", serif;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 2mm;
+      color: var(--muted);
+      font-size: 9.6px;
+    }
+
+    .figure-page img {
+      width: 100%;
+      display: block;
+      border: 2px solid var(--line);
+      background: #ffffff;
+      margin: 0;
+    }
+
+    .figure-block {
+      margin-bottom: 9mm;
+    }
+
+    .caption {
+      margin-top: 2mm;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .caption b {
+      color: var(--blue);
+    }
+
+    .callout {
+      border: 3px solid var(--blue);
+      background: #ffffff;
+      padding: 5mm;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .references {
+      font-size: 10.3px;
+      padding-left: 5mm;
+    }
+
+    .references li {
+      margin-bottom: 2.4mm;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+  <section class="sheet cover">
+    <div class="cover-mark"></div>
+    <div class="page">
+      <div class="hero">
+        <span class="deck-label">ML HOMEWORK / POWER FORECAST DOSSIER</span>
+        <h1>家庭电力消耗<br>多步预测实验报告</h1>
+        <div class="subtitle">LSTM、Transformer 与 LSTM+Transformer Ensemble 的 90/365 天预测对比</div>
+      </div>
+      <div class="cover-grid">
+        <dl class="brief">
+          <div class="brief-row">
+            <dt>任务</dt>
+            <dd>基于过去 90 天多变量电力消耗序列，预测未来 90 天与 365 天每日 <span class="mono">global_active_power</span>。</dd>
+          </div>
+          <div class="brief-row">
+            <dt>数据集</dt>
+            <dd>UCI Machine Learning Repository: Individual household electric power consumption。</dd>
+          </div>
+          <div class="brief-row">
+            <dt>结论</dt>
+            <dd>最终模型为固定 0.5/0.5 权重的 LSTM+Transformer Ensemble；不使用测试集调权。</dd>
+          </div>
+          <div class="brief-row">
+            <dt>仓库</dt>
+            <dd><a href="https://github.com/ziangbuchu/ML_homework">GitHub: ML_homework</a></dd>
+          </div>
+        </dl>
+        <div class="metric-stack">
+          <div class="metric-card">
+            <span class="k">BEST 90-DAY MSE</span>
+            <span class="v">0.374844</span>
+          </div>
+          <div class="metric-card light">
+            <span class="k">BEST 365-DAY MSE</span>
+            <span class="v">0.444566</span>
+          </div>
+          <div class="metric-card">
+            <span class="k">OFFICIAL RUNS</span>
+            <span class="v">40</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <div class="page">
+      <div class="running"><span>problem framing</span><span>chronological forecasting</span></div>
+      <div class="section-title"><span class="num">01</span><h2>问题介绍与实验设计取舍</h2></div>
+      <p class="lead">家庭电力消耗预测不是普通随机回归，而是单一住户时间序列上的多步未来估计。报告采用时间顺序切分，保留真实预测中的“只能从过去学习、在未来测试”的约束。</p>
+      <div class="two-col">
+        <div>
+          <p>本项目使用 UCI 公开的 Individual household electric power consumption 数据集，页面为 <a href="https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption">https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption</a>。原始数据覆盖 2006-12-16 至 2010-11-26 的分钟级家庭电力观测，共 2,075,259 条记录。清洗时按分钟时间轴补齐索引，对缺失分钟做时间插值并前后填充，再聚合为 1,442 条日级样本。</p>
+          <p>输入窗口固定为 90 天，输出窗口分别为 90 天和 365 天。90 天任务更关注近期状态与局部波动，365 天任务更考验模型是否捕捉跨季节趋势。</p>
+        </div>
+        <div class="panel blue">
+          <p class="kicker">DESIGN CHOICES</p>
+          <ul class="rule-list">
+            <li><b>时间顺序切分：</b>不随机打散窗口，避免让未来信息混入训练。</li>
+            <li><b>固定 90 天输入：</b>兼顾季节信息、样本数量和长期预测可训练性。</li>
+            <li><b>标准化指标：</b>主要用于模型相对比较，不直接声称原始 kW 部署误差。</li>
+            <li><b>多 seed mean/std：</b>报告 5 个 seed，避免用单次训练偶然结果支撑结论。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><strong>1,442</strong><span>日级样本</span></div>
+        <div class="stat"><strong>1,263</strong><span>90 天输出窗口</span></div>
+        <div class="stat"><strong>988</strong><span>365 天输出窗口</span></div>
+        <div class="stat"><strong>8</strong><span>输入特征</span></div>
+      </div>
+      <div class="callout">结论边界：本文证明的是在当前数据流水线、训练预算和标准化目标尺度下的模型相对优劣，而不是直接证明可部署的家庭用电量绝对误差。</div>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <div class="page">
+      <div class="running"><span>model design</span><span>bias before complexity</span></div>
+      <div class="section-title"><span class="num">02</span><h2>模型归纳偏置与最终方案</h2></div>
+      <div class="three-col">
+        <div class="panel">
+          <p class="kicker">LSTM</p>
+          <h3>局部记忆</h3>
+          <p>递归状态天然偏向连续时间记忆，适合小规模日级数据上的短期演化；长期 horizon 中，未来信息被压缩进最后隐藏状态，表达能力可能受限。</p>
+          <div class="code">H = LSTM(X)
+z = H_last
+y = Linear(z)</div>
+        </div>
+        <div class="panel">
+          <p class="kicker">Transformer</p>
+          <h3>全局比较</h3>
+          <p>自注意力直接比较输入窗口内任意两天，长期趋势更灵活；但样本较少时，也更容易学习到不稳定的全局相关。</p>
+          <div class="code">E = Linear(X) + PosEnc
+Z = Encoder(E)
+y = Head(mean(Z))</div>
+        </div>
+        <div class="panel">
+          <p class="kicker">TCN+TF</p>
+          <h3>负结果</h3>
+          <p>卷积模块原本用于先抽取局部波动再交给注意力建模全局关系；正式五轮结果不优，说明额外结构在当前数据和训练预算下没有稳定收益。</p>
+          <div class="code">Conv blocks
++ PosEnc
++ Transformer
+= no stable gain</div>
+        </div>
+      </div>
+      <div class="section-title" style="margin-top: 11mm;"><span class="num">03</span><h2>LSTM+Transformer Ensemble</h2></div>
+      <div class="two-col">
+        <div>
+          <p>最终改进模型不是盲目堆叠复杂度，而是把两类互补归纳偏置做风险分散。LSTM 在 90 天上更稳，Transformer 在 365 天上更强；如果两个模型误差不是完全同向，平均预测可以降低方差和局部偏差。</p>
+          <p>ensemble 权重固定为 0.5/0.5，不在测试集上调参。脚本加载同一 seed 下已训练的 LSTM 和 Transformer 权重，重新评估 train/val/test 三个 split。</p>
+        </div>
+        <div class="code">y_lstm = LSTM(X)
+y_tf   = Transformer(X)
+y_hat  = 0.5 * y_lstm + 0.5 * y_tf
+
+selection rule:
+  fixed before test evaluation</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <div class="page">
+      <div class="running"><span>official results</span><span>5 seeds / standardized target scale</span></div>
+      <div class="section-title"><span class="num">04</span><h2>正式结果与简单基线</h2></div>
+      <table>
+        <thead>
+          <tr><th>Model</th><th>Horizon</th><th class="num-cell">Test MSE mean±std</th><th class="num-cell">Test MAE mean±std</th><th class="num-cell">n</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>LSTM</td><td>90</td><td class="num-cell">0.461748±0.025748</td><td class="num-cell">0.528486±0.016241</td><td class="num-cell">5</td></tr>
+          <tr><td class="best">LSTM+TF Ensemble</td><td>90</td><td class="num-cell best">0.374844±0.021490</td><td class="num-cell best">0.476894±0.012026</td><td class="num-cell">5</td></tr>
+          <tr><td>TCN+Transformer</td><td>90</td><td class="num-cell">0.512452±0.028040</td><td class="num-cell">0.579678±0.016588</td><td class="num-cell">5</td></tr>
+          <tr><td>Transformer</td><td>90</td><td class="num-cell">0.471832±0.023400</td><td class="num-cell">0.554246±0.021258</td><td class="num-cell">5</td></tr>
+          <tr><td>LSTM</td><td>365</td><td class="num-cell">0.499038±0.096153</td><td class="num-cell">0.550961±0.058222</td><td class="num-cell">5</td></tr>
+          <tr><td class="best">LSTM+TF Ensemble</td><td>365</td><td class="num-cell best">0.444566±0.034877</td><td class="num-cell best">0.516384±0.022741</td><td class="num-cell">5</td></tr>
+          <tr><td>TCN+Transformer</td><td>365</td><td class="num-cell">0.655113±0.071301</td><td class="num-cell">0.638373±0.036456</td><td class="num-cell">5</td></tr>
+          <tr><td>Transformer</td><td>365</td><td class="num-cell">0.463998±0.036387</td><td class="num-cell">0.526030±0.023207</td><td class="num-cell">5</td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">90 天预测中，ensemble 相对 LSTM 的 MSE 约下降 18.82%，MAE 约下降 9.76%。365 天预测中，ensemble 相对 Transformer 的 MSE 约下降 4.19%，MAE 约下降 1.83%。</p>
+
+      <div class="two-col" style="margin-top: 9mm;">
+        <div class="panel blue">
+          <p class="kicker">NAIVE BASELINE</p>
+          <h3>简单预测不是答案</h3>
+          <p><span class="mono">last_value</span> 将最后一天目标值重复到未来；<span class="mono">input_mean</span> 将输入窗口均值重复到未来。二者都明显弱于 LSTM+Transformer Ensemble。</p>
+        </div>
+        <table>
+          <thead><tr><th>Model</th><th>Horizon</th><th class="num-cell">Test MSE</th><th class="num-cell">Test MAE</th></tr></thead>
+          <tbody>
+            <tr><td>input_mean</td><td>90</td><td class="num-cell">0.736495</td><td class="num-cell">0.711796</td></tr>
+            <tr><td>last_value</td><td>90</td><td class="num-cell">0.923572</td><td class="num-cell">0.757890</td></tr>
+            <tr><td>input_mean</td><td>365</td><td class="num-cell">1.036502</td><td class="num-cell">0.817853</td></tr>
+            <tr><td>last_value</td><td>365</td><td class="num-cell">1.431294</td><td class="num-cell">0.960546</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <div class="page">
+      <div class="running"><span>ablation</span><span>validation-only weight selection</span></div>
+      <div class="section-title"><span class="num">05</span><h2>Ensemble 权重选择消融</h2></div>
+      <p class="lead">为了检验固定 0.5/0.5 权重是否只是偶然选择，本项目在 {0.0, 0.1, ..., 1.0} 上扫描 LSTM 权重。权重只能由验证集 MSE 选择；test-oracle 只作为诊断，不参与模型选择。</p>
+      <table>
+        <thead><tr><th>Horizon</th><th>Rule</th><th class="num-cell">Test MSE mean±std</th><th class="num-cell">Test MAE mean±std</th><th>Selected weights</th></tr></thead>
+        <tbody>
+          <tr><td>90</td><td>equal 0.5</td><td class="num-cell best">0.374842±0.021491</td><td class="num-cell best">0.476893±0.012027</td><td>0.5, 0.5, 0.5, 0.5, 0.5</td></tr>
+          <tr><td>90</td><td>validation-selected</td><td class="num-cell">0.446209±0.043318</td><td class="num-cell">0.518641±0.027420</td><td>0.7, 1.0, 1.0, 1.0, 1.0</td></tr>
+          <tr><td>90</td><td>test-oracle diagnostic</td><td class="num-cell">0.374186±0.021537</td><td class="num-cell">0.475724±0.011638</td><td>0.5, 0.5, 0.6, 0.6, 0.5</td></tr>
+          <tr><td>365</td><td>equal 0.5</td><td class="num-cell">0.444563±0.034875</td><td class="num-cell">0.516382±0.022740</td><td>0.5, 0.5, 0.5, 0.5, 0.5</td></tr>
+          <tr><td>365</td><td>validation-selected</td><td class="num-cell best">0.442416±0.017311</td><td class="num-cell best">0.513660±0.010671</td><td>0.1, 0.2, 0.4, 0.3, 0.3</td></tr>
+          <tr><td>365</td><td>test-oracle diagnostic</td><td class="num-cell">0.429071±0.012882</td><td class="num-cell">0.504761±0.008479</td><td>0.4, 0.4, 0.7, 0.6, 0.0</td></tr>
+        </tbody>
+      </table>
+      <div class="two-col" style="margin-top: 9mm;">
+        <div class="panel">
+          <p class="kicker">READING THE FAILURE</p>
+          <h3>验证集调权不总是更好</h3>
+          <p>90 天任务中，验证集选权重偏向 LSTM-heavy，但测试集明显变差。这说明验证集和测试集在短期窗口上存在分布差异，不能把 validation tuning 自动等同于更稳健模型。</p>
+        </div>
+        <div class="panel blue">
+          <p class="kicker">FINAL DECISION</p>
+          <h3>保留 fixed equal ensemble</h3>
+          <p>365 天 validation-selected 略优，但综合两个 horizon，固定 0.5/0.5 更不激进、更可解释，并且避免按某一个窗口过度适配。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet figure-page">
+    <div class="page">
+      <div class="running"><span>forecast traces</span><span>seed 1 / first test window</span></div>
+      <div class="figure-block" style="margin-top: 20mm;">
+        <img src="../results/official_summary/figures/comparison_h90_seed1.png" alt="90-day forecast comparison">
+        <p class="caption"><b>图 1.</b> Seed 1 的第一个 90 天测试窗口。Ensemble 曲线比单模型更平衡，整体误差最低，但局部峰谷仍有偏差。</p>
+      </div>
+      <div class="figure-block">
+        <img src="../results/official_summary/figures/comparison_h365_seed1.png" alt="365-day forecast comparison">
+        <p class="caption"><b>图 2.</b> Seed 1 的第一个 365 天测试窗口。长期预测更容易出现幅度收缩和趋势偏移，Ensemble 在平滑趋势与局部变化之间取得了更好的折中。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <div class="page">
+      <div class="running"><span>discussion</span><span>boundaries / counterfactuals</span></div>
+      <div class="section-title"><span class="num">06</span><h2>讨论：有效性边界与反事实思考</h2></div>
+      <div class="two-col">
+        <div>
+          <p>本实验支持两个有限结论。第一，在本数据集、90 天输入窗口和当前训练预算下，单模型中 LSTM 更适合 90 天短期预测，Transformer 更适合 365 天长期预测。第二，固定等权重 LSTM+Transformer Ensemble 在两个预测窗口上都取得最低 test MSE 和 MAE，因此是当前最终改进模型。</p>
+          <p>TCN+Transformer 在当前实验中是负结果，但不代表卷积结构无效。更合理的解释是：当前日级样本量、训练轮数和输出跨度不足以支持额外模块带来的优化成本。</p>
+        </div>
+        <div class="panel blue">
+          <p class="kicker">LIMITS</p>
+          <ul class="rule-list">
+            <li>标准化目标尺度便于比较，但不直接等同于原始 kW 误差。</li>
+            <li>滑动窗口相邻样本存在重叠，不能夸大为完全独立泛化。</li>
+            <li>Ensemble 推理成本高于单模型，需要同时维护两个基础模型。</li>
+            <li>未引入天气、节假日或住户行为特征。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel" style="margin-top: 9mm;">
+        <p class="kicker">NEXT STEPS</p>
+        <p>若进一步追求工程简洁性，可以尝试知识蒸馏或轻量 gating，把 ensemble 的互补性压缩到单模型中。若进一步追求科学严谨性，应增加更多随机 seed、做 train/val/test 时间边界敏感性分析，并同时报告原始尺度误差与标准化误差。</p>
+      </div>
+      <div class="section-title" style="margin-top: 12mm;"><span class="num">07</span><h2>参考文献</h2></div>
+      <ol class="references">
+        <li>UCI Machine Learning Repository. Individual household electric power consumption. <a href="https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption">UCI 数据集页面</a>.</li>
+        <li>Hebrail, G. and Berard, A. Individual household electric power consumption Data Set. EDF R&amp;D, Clamart, France, 2006--2010.</li>
+        <li>Hochreiter, S. and Schmidhuber, J. Long Short-Term Memory. Neural Computation, 1997.</li>
+        <li>Vaswani, A. et al. Attention Is All You Need. NeurIPS, 2017.</li>
+        <li>Bai, S., Kolter, J. Z., and Koltun, V. An Empirical Evaluation of Generic Convolutional and Recurrent Networks for Sequence Modeling. arXiv, 2018.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <div class="page">
+      <div class="running"><span>submission</span><span>reproducibility / disclosure</span></div>
+      <div class="section-title"><span class="num">08</span><h2>复现、自检与工具辅助说明</h2></div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="kicker">REPRODUCE</p>
+          <p>完整复现步骤见 <span class="mono">docs/reproducibility.md</span>。提交前运行 <span class="mono">PYTHONPATH=src python scripts/verify_submission.py</span>，该脚本检查 PDF 可解析性、报告必需文本、关键产物存在性，以及 <span class="mono">lstm_transformer_ensemble</span> 是否在 90 天和 365 天测试集 MSE/MAE 上均为第一。</p>
+          <div class="code">PYTHONPATH=src python scripts/run_naive_baselines.py
+PYTHONPATH=src python scripts/run_ensemble_weight_sweep.py \
+  --device cpu
+python scripts/build_design_report_pdf.py
+PYTHONPATH=src python scripts/verify_submission.py</div>
+        </div>
+        <div class="panel blue">
+          <p class="kicker">工具辅助说明</p>
+          <p>本项目使用 ChatGPT/Codex 辅助进行代码实现、实验脚本整理、改进模型尝试和报告草稿生成。数据下载、清洗、训练、ensemble 评估和结果汇总均由本仓库脚本在本机环境中执行，报告表格与图像来自 <span class="mono">results/official_summary/</span> 中的正式实验产物。</p>
+        </div>
+      </div>
+      <div class="section-title" style="margin-top: 10mm;"><span class="num">09</span><h2>最终提交检查</h2></div>
+      <div class="three-col">
+        <div class="panel"><h3>报告</h3><p class="mono">reports/ML_homework_report.pdf<br>reports/ML_homework_report.html<br>reports/ML_homework_report.tex</p></div>
+        <div class="panel"><h3>代码</h3><p class="mono">scripts/verify_submission.py<br>scripts/build_design_report_pdf.py<br>src/ml_homework/</p></div>
+        <div class="panel"><h3>链接</h3><p><a href="https://github.com/ziangbuchu/ML_homework">GitHub 仓库</a><br><a href="https://docs.qq.com/form/page/DT3pqV3pNcGV6TG1z">提交入口</a><br>截止：2026 年 7 月 15 日中午 12:00 前</p></div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

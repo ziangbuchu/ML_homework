@@ -1,0 +1,6 @@
+{"_example": "Fill with {\"file\": \"<path>\", \"reason\": \"<why>\"}. Put spec/research files only — no code paths. Run `python3 .trellis/scripts/get_context.py --mode packages` to list available specs. Delete this line once real entries are added."}
+{"file": "configs/data_uci.yaml", "reason": "UCI data pipeline config"}
+{"file": "src/ml_homework/data.py", "reason": "UCI aggregation scaling window pipeline"}
+{"file": "scripts/download_uci_power.py", "reason": "UCI download entry"}
+{"file": "scripts/prepare_data.py", "reason": "data preparation entry"}
+{"file": "docs/data-pipeline.md", "reason": "data pipeline decisions"}

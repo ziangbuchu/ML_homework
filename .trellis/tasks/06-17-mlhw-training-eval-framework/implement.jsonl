@@ -1,0 +1,8 @@
+{"_example": "Fill with {\"file\": \"<path>\", \"reason\": \"<why>\"}. Put spec/research files only — no code paths. Run `python3 .trellis/scripts/get_context.py --mode packages` to list available specs. Delete this line once real entries are added."}
+{"file": "configs/train_smoke.yaml", "reason": "training smoke config"}
+{"file": "src/ml_homework/datasets.py", "reason": "NPZ window Dataset"}
+{"file": "src/ml_homework/metrics.py", "reason": "shared MSE MAE metrics"}
+{"file": "src/ml_homework/models.py", "reason": "model registry and linear smoke model"}
+{"file": "src/ml_homework/train.py", "reason": "shared train eval save plot loop"}
+{"file": "scripts/run_experiment.py", "reason": "experiment CLI"}
+{"file": "docs/training-framework.md", "reason": "training framework documentation"}

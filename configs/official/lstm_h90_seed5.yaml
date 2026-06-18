@@ -1,0 +1,23 @@
+experiment:
+  name: official_lstm_h90
+  seed: 5
+  device: cpu
+  output_root: results/official_runs
+  overwrite: true
+data:
+  train_path: data/processed/uci_power/train_input90_output90.npz
+  val_path: data/processed/uci_power/val_input90_output90.npz
+  test_path: data/processed/uci_power/test_input90_output90.npz
+model:
+  name: lstm
+  hidden_size: 64
+  num_layers: 1
+  dropout: 0.0
+training:
+  epochs: 8
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 0.0
+  early_stopping_patience: 3
+artifacts:
+  plot_examples: 3

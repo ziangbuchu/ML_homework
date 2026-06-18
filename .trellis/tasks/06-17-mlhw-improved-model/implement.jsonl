@@ -1,0 +1,5 @@
+{"_example": "Fill with {\"file\": \"<path>\", \"reason\": \"<why>\"}. Put spec/research files only — no code paths. Run `python3 .trellis/scripts/get_context.py --mode packages` to list available specs. Delete this line once real entries are added."}
+{"file": "src/ml_homework/models.py", "reason": "TCN Transformer model registry implementation"}
+{"file": "configs/train_improved_smoke_90.yaml", "reason": "improved 90-day smoke config"}
+{"file": "configs/train_improved_smoke_365.yaml", "reason": "improved 365-day smoke config"}
+{"file": "docs/improved-model.md", "reason": "improved model method notes"}
