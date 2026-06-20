@@ -13,6 +13,8 @@ from typing import Any
 GITHUB_URL = "https://github.com/ziangbuchu/ML_homework"
 UCI_URL = "https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption"
 IMPROVED_MODEL = "lstm_transformer_ensemble"
+AUTHOR_NAME = "李凡"
+STUDENT_ID = "20255227122"
 HORIZONS = ("90", "365")
 
 
@@ -121,6 +123,8 @@ def verify_report_text() -> dict[str, Any]:
     required_fragments = [
         GITHUB_URL,
         UCI_URL,
+        AUTHOR_NAME,
+        STUDENT_ID,
         "参考文献",
         "工具辅助说明",
         "LSTM+Transformer Ensemble",

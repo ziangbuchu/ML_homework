@@ -2,6 +2,7 @@
 
 - [x] 代码仓库包含可运行的数据、训练、正式实验和汇总脚本。
 - [x] GitHub 链接已写入 README 和报告：https://github.com/ziangbuchu/ML_homework
+- [x] 作者与学号已写入报告：李凡，20255227122
 - [x] HTML/CSS 设计报告源稿已完成：`reports/ML_homework_report.html`
 - [x] 设计版 PDF 构建脚本已完成：`scripts/build_design_report_pdf.py`
 - [x] LaTeX PDF 报告源稿已完成：`reports/ML_homework_report.tex`

@@ -4,6 +4,7 @@
 - 数据集：UCI Machine Learning Repository, Individual household electric power consumption
 - 任务：基于过去 90 天多变量电力消耗序列，预测未来 90 天和 365 天每日 `global_active_power`
 - 指标：MSE 与 MAE，报告数值为标准化目标尺度上的测试集 5 个 seed mean±std
+- 作者：李凡；学号：20255227122
 - 说明：本报告按单人作业组织，未涉及组队贡献拆分
 
 ## 1. 问题介绍
@@ -108,5 +109,6 @@ ensemble 权重固定为 0.5/0.5，没有按测试集调参。脚本会加载同
 - 复现说明：`docs/reproducibility.md`
 - 提交自检：`scripts/verify_submission.py`
 - GitHub 链接：https://github.com/ziangbuchu/ML_homework
+- 作者：李凡；学号：20255227122；单人作业，未涉及组队贡献拆分
 - 提交入口：https://docs.qq.com/form/page/DT3pqV3pNcGV6TG1z
 - 截止时间：2026 年 7 月 15 日中午 12:00 前

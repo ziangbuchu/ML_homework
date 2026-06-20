@@ -465,6 +465,279 @@
       text-decoration: none;
       overflow-wrap: anywhere;
     }
+
+    /* Coursework submission style: plain A4 report, restrained decoration. */
+    html,
+    body {
+      background: #ececec;
+      color: #111111;
+      font-family: "Noto Serif CJK SC", "Noto Sans CJK SC", serif;
+      line-height: 1.6;
+    }
+
+    .sheet {
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .page {
+      padding: 20mm 22mm 18mm;
+    }
+
+    .page::before {
+      left: 22mm;
+      right: 22mm;
+      top: 15mm;
+      height: 1px;
+      background: #222222;
+    }
+
+    .sheet::after {
+      color: #444444;
+      right: 22mm;
+      bottom: 12mm;
+      font-family: "Noto Serif CJK SC", serif;
+      font-size: 10px;
+      letter-spacing: 0;
+    }
+
+    .running,
+    .cover-mark {
+      display: none;
+    }
+
+    .cover {
+      background: #ffffff;
+    }
+
+    .deck-label {
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #444444;
+      font-family: "Noto Sans CJK SC", sans-serif;
+      font-size: 0;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .deck-label::after {
+      content: "机器学习课程大作业";
+      font-size: 13px;
+    }
+
+    .hero {
+      padding-top: 26mm;
+      text-align: center;
+    }
+
+    .hero h1 {
+      margin: 16mm auto 8mm;
+      max-width: 150mm;
+      font-size: 28px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .hero .subtitle {
+      max-width: 150mm;
+      margin: 0 auto;
+      color: #222222;
+      font-family: "Noto Sans CJK SC", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .cover-grid {
+      display: block;
+      margin-top: 20mm;
+    }
+
+    .brief {
+      width: 145mm;
+      margin: 0 auto;
+      border: 1px solid #333333;
+      padding: 0;
+    }
+
+    .brief-row {
+      grid-template-columns: 32mm 1fr;
+      gap: 0;
+      padding: 0;
+      border-bottom: 1px solid #cfcfcf;
+      font-size: 11.5px;
+    }
+
+    .brief dt,
+    .brief dd {
+      padding: 3.2mm 4mm;
+    }
+
+    .brief dt {
+      color: #111111;
+      background: #f3f3f3;
+      border-right: 1px solid #cfcfcf;
+      font-weight: 700;
+    }
+
+    .metric-stack {
+      width: 145mm;
+      margin: 10mm auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4mm;
+    }
+
+    .metric-card,
+    .metric-card.light {
+      min-height: 23mm;
+      border: 1px solid #333333;
+      background: #ffffff;
+      color: #111111;
+      padding: 4mm;
+    }
+
+    .metric-card .k {
+      font-family: "Noto Sans CJK SC", sans-serif;
+      font-size: 9px;
+      color: #555555;
+      letter-spacing: 0;
+      opacity: 1;
+    }
+
+    .metric-card .v {
+      margin-top: 2mm;
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    .section-title {
+      margin: 7mm 0 6mm;
+      display: flex;
+      align-items: baseline;
+      gap: 3mm;
+      border-bottom: 1px solid #333333;
+      padding-bottom: 2mm;
+    }
+
+    .section-title .num {
+      display: inline;
+      width: auto;
+      height: auto;
+      border: 0;
+      background: transparent;
+      color: #111111;
+      font-family: "Noto Serif CJK SC", serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .section-title h2 {
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    .kicker {
+      color: #222222;
+      font-family: "Noto Sans CJK SC", sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    p {
+      font-size: 11.5px;
+      margin-bottom: 3mm;
+    }
+
+    .lead {
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .two-col {
+      gap: 7mm;
+    }
+
+    .three-col {
+      gap: 4mm;
+    }
+
+    .panel,
+    .panel.blue,
+    .stat,
+    .callout {
+      border: 1px solid #d0d0d0;
+      background: #ffffff;
+      padding: 4mm;
+    }
+
+    .panel h3 {
+      font-family: "Noto Sans CJK SC", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .panel p,
+    .panel li {
+      font-size: 10.5px;
+    }
+
+    .rule-list li,
+    td {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    .code {
+      border: 1px solid #cccccc;
+      background: #f7f7f7;
+      color: #111111;
+      font-size: 8.7px;
+    }
+
+    table {
+      font-size: 9.8px;
+    }
+
+    th {
+      color: #111111;
+      border-top: 1.5px solid #333333;
+      border-bottom: 1px solid #333333;
+      background: #f3f3f3;
+    }
+
+    .best {
+      color: #111111;
+      font-weight: 700;
+    }
+
+    .stat-row {
+      gap: 3mm;
+      margin: 5mm 0;
+    }
+
+    .stat {
+      border-left: 2px solid #333333;
+    }
+
+    .stat strong {
+      font-size: 17px;
+    }
+
+    .figure-page img {
+      border: 1px solid #999999;
+    }
+
+    .caption b,
+    a {
+      color: #111111;
+    }
   </style>
 </head>
 <body>
@@ -472,7 +745,7 @@
     <div class="cover-mark"></div>
     <div class="page">
       <div class="hero">
-        <span class="deck-label">ML HOMEWORK / POWER FORECAST DOSSIER</span>
+        <span class="deck-label">机器学习课程大作业</span>
         <h1>家庭电力消耗<br>多步预测实验报告</h1>
         <div class="subtitle">LSTM、Transformer 与 LSTM+Transformer Ensemble 的 90/365 天预测对比</div>
       </div>
@@ -494,18 +767,22 @@
             <dt>仓库</dt>
             <dd><a href="https://github.com/ziangbuchu/ML_homework">GitHub: ML_homework</a></dd>
           </div>
+          <div class="brief-row">
+            <dt>作者</dt>
+            <dd>李凡（学号：20255227122）；单人作业，未涉及组队贡献拆分。</dd>
+          </div>
         </dl>
         <div class="metric-stack">
           <div class="metric-card">
-            <span class="k">BEST 90-DAY MSE</span>
+            <span class="k">90 天最佳 MSE</span>
             <span class="v">0.374844</span>
           </div>
           <div class="metric-card light">
-            <span class="k">BEST 365-DAY MSE</span>
+            <span class="k">365 天最佳 MSE</span>
             <span class="v">0.444566</span>
           </div>
           <div class="metric-card">
-            <span class="k">OFFICIAL RUNS</span>
+            <span class="k">正式实验数</span>
             <span class="v">40</span>
           </div>
         </div>
@@ -524,7 +801,7 @@
           <p>输入窗口固定为 90 天，输出窗口分别为 90 天和 365 天。90 天任务更关注近期状态与局部波动，365 天任务更考验模型是否捕捉跨季节趋势。</p>
         </div>
         <div class="panel blue">
-          <p class="kicker">DESIGN CHOICES</p>
+          <p class="kicker">实验设计取舍</p>
           <ul class="rule-list">
             <li><b>时间顺序切分：</b>不随机打散窗口，避免让未来信息混入训练。</li>
             <li><b>固定 90 天输入：</b>兼顾季节信息、样本数量和长期预测可训练性。</li>
@@ -685,7 +962,7 @@ selection rule:
           <p>TCN+Transformer 在当前实验中是负结果，但不代表卷积结构无效。更合理的解释是：当前日级样本量、训练轮数和输出跨度不足以支持额外模块带来的优化成本。</p>
         </div>
         <div class="panel blue">
-          <p class="kicker">LIMITS</p>
+          <p class="kicker">有效性边界</p>
           <ul class="rule-list">
             <li>标准化目标尺度便于比较，但不直接等同于原始 kW 误差。</li>
             <li>滑动窗口相邻样本存在重叠，不能夸大为完全独立泛化。</li>
@@ -695,7 +972,7 @@ selection rule:
         </div>
       </div>
       <div class="panel" style="margin-top: 9mm;">
-        <p class="kicker">NEXT STEPS</p>
+        <p class="kicker">后续改进方向</p>
         <p>若进一步追求工程简洁性，可以尝试知识蒸馏或轻量 gating，把 ensemble 的互补性压缩到单模型中。若进一步追求科学严谨性，应增加更多随机 seed、做 train/val/test 时间边界敏感性分析，并同时报告原始尺度误差与标准化误差。</p>
       </div>
       <div class="section-title" style="margin-top: 12mm;"><span class="num">07</span><h2>参考文献</h2></div>
@@ -715,7 +992,7 @@ selection rule:
       <div class="section-title"><span class="num">08</span><h2>复现、自检与工具辅助说明</h2></div>
       <div class="two-col">
         <div class="panel">
-          <p class="kicker">REPRODUCE</p>
+          <p class="kicker">复现步骤</p>
           <p>完整复现步骤见 <span class="mono">docs/reproducibility.md</span>。提交前运行 <span class="mono">PYTHONPATH=src python scripts/verify_submission.py</span>，该脚本检查 PDF 可解析性、报告必需文本、关键产物存在性，以及 <span class="mono">lstm_transformer_ensemble</span> 是否在 90 天和 365 天测试集 MSE/MAE 上均为第一。</p>
           <div class="code">PYTHONPATH=src python scripts/run_naive_baselines.py
 PYTHONPATH=src python scripts/run_ensemble_weight_sweep.py \
@@ -732,7 +1009,7 @@ PYTHONPATH=src python scripts/verify_submission.py</div>
       <div class="three-col">
         <div class="panel"><h3>报告</h3><p class="mono">reports/ML_homework_report.pdf<br>reports/ML_homework_report.html<br>reports/ML_homework_report.tex</p></div>
         <div class="panel"><h3>代码</h3><p class="mono">scripts/verify_submission.py<br>scripts/build_design_report_pdf.py<br>src/ml_homework/</p></div>
-        <div class="panel"><h3>链接</h3><p><a href="https://github.com/ziangbuchu/ML_homework">GitHub 仓库</a><br><a href="https://docs.qq.com/form/page/DT3pqV3pNcGV6TG1z">提交入口</a><br>截止：2026 年 7 月 15 日中午 12:00 前</p></div>
+        <div class="panel"><h3>链接</h3><p>作者：李凡<br>学号：20255227122<br><a href="https://github.com/ziangbuchu/ML_homework">GitHub 仓库</a><br><a href="https://docs.qq.com/form/page/DT3pqV3pNcGV6TG1z">提交入口</a><br>截止：2026 年 7 月 15 日中午 12:00 前</p></div>
       </div>
     </div>
   </section>
